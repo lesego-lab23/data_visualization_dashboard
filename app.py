@@ -15,5 +15,7 @@ app.layout = create_layout(df)
 register_callbacks(app, df)
 
 if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8050))
     app.run(debug=True)
 
