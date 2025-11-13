@@ -1,21 +1,38 @@
-from dash import Dash
-import dash_bootstrap_components as dbc
-from data_loader import load_data
-from layout import create_layout
-from callbacks import register_callbacks
+import csv
+from dash import Dash, dcc, html
+import plotly.express as px
+import os
 
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.SANDSTONE])
-app.title = "Car Price Analysis Dashboard"
+app = Dash(__name__)
 
-df = load_data()
+data = []
 
-app.layout = create_layout(df)
+with open("data/sample.csv", newline="") as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        
+        row["value"] = float(row["value"])
+        data.append(row)
 
-register_callbacks(app, df)
+
+x_values = [row["category"] for row in data]
+y_values = [row["value"] for row in data]
+
+
+fig = px.bar(
+    x=x_values,
+    y=y_values,
+    labels={"x": "Category", "y": "Value"},
+    title="Sample Dashboard Chart"
+)
+
+app.layout = html.Div([
+    html.H1("Data Visualization Dashboard"),
+    dcc.Graph(figure=fig)
+])
+
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 8050))
-    app.run(debug=True)
-
+    app.run_server(host="0.0.0.0", port=port)
