@@ -1,4 +1,3 @@
-# callbacks.py
 from dash import Input, Output
 import plotly.express as px
 

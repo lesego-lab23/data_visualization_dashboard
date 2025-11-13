@@ -59,13 +59,3 @@ http://127.0.0.1:8050/
 
 
 Explore the dashboard and interact with the visualizations.
-
-## Project Structure
-data-visualization-dashboard/
-│
-├── app.py                 # Main Dash application
-├── assets/                # CSS and static assets
-├── data/                  # Sample datasets (CSV, JSON)
-├── components/            # Custom Dash components (optional)
-├── requirements.txt       # Python dependencies
-└── README.md              # Project documentation
